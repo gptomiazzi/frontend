@@ -1,14 +1,21 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
-import Login from "./pages/Login";
-import Home from "./pages/Home";
+import Login from "./components/Login/Login";
+import Home from "./components/Home/Home";
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import NotAuth from './components/NotAuth/NotAuth';
 
-export default function Routes() {
+const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/home" component={Home} />
+      <Route path="/login" component={Login} />
+      <PrivateRoute path="/home" component={Home} />
+      <Route path="/notauth" component={NotAuth} />
+
+      <Redirect from="/" to="/login" />
     </Switch>
   );
-}
+};
+
+export default Routes;

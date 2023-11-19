@@ -1,24 +1,29 @@
-import { createContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-import api from '../api/axios';
+const AuthContext = createContext();
 
-const Context = createContext();
+export const AuthProvider = ({ children }) => {
+  const [token, setToken] = useState(sessionStorage.getItem('token') || null);
 
-function AuthProvider({ children }) {
-  const [ authenticated, setAuthenticated ] = useState(false);
-  const credentials = { username: "gabriel", password: "123"};
+  const updateToken = (newToken) => {
+    console.log('Updating token:', newToken);
+    setToken(newToken);
+    sessionStorage.setItem('token', newToken);
+  };
 
-  async function handleLogin() {
-    const { data } = await api.post('/login', credentials);
-
-    console.log(data);
-  }
+  useEffect(() => {
+    console.log('Current token:', token);
+  }, [token]);
 
   return (
-    <Context.Provider value={{ authenticated, handleLogin }}>
+    <AuthContext.Provider value={{ token, updateToken }}>
       {children}
-    </Context.Provider>
+    </AuthContext.Provider>
   );
-}
+};
 
-export { Context, AuthProvider };
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+
+  return context;
+};

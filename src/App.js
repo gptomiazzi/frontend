@@ -6,7 +6,7 @@ import history from "./history";
 
 import { AuthProvider } from "./Context/AuthContext";
 
-function App() {
+export const App = () => {
   return (
     <AuthProvider>
       <Router history={history}>
