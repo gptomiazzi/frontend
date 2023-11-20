@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const LoginFormContainer = styled.div`
   max-width: 400px;
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -15,6 +15,7 @@ export const LoginFormContainer = styled.div`
 export const LoginTitle = styled.h2`
   text-align: center;
   color: #333;
+  margin-bottom: 10px;
 `;
 
 export const LoginInput = styled.input`
